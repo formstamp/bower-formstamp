@@ -10,7 +10,7 @@ All development is performed in
 Installation
 -----------
 
-    bower install formstamp
+    bower install angular-formstamp
 
 License
 -----------
