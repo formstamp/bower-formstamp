@@ -14,7 +14,9 @@
   "keywords": ["ui", "angular", "widgets"],
   "main": [
     "build/formstamp.css",
-    "build/formstamp.js"
+    "build/formstamp.js",
+    "README.md",
+    "MIT-LICENSE"
   ],
   "license": "MIT",
   "ignore": [
