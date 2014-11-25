@@ -493,7 +493,7 @@
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var mod, setAttrs,
+	var isDirectChild, mod, setAttrs,
 	  __hasProp = {}.hasOwnProperty;
 
 	mod = __webpack_require__(16);
@@ -549,12 +549,29 @@
 	  }
 	]);
 
+	isDirectChild = function(form, el) {
+	  var testel;
+	  testel = el;
+	  while (testel) {
+	    if (testel.tagName.toLowerCase() === 'fs-form-for') {
+	      if (testel.isSameNode(form)) {
+	        return true;
+	      } else {
+	        return false;
+	      }
+	    }
+	    testel = testel.parentNode;
+	  }
+	  return false;
+	};
+
 	mod.directive('fsFormFor', [
 	  '$templateCache', function($templateCache) {
 	    return {
 	      restrict: 'AE',
+	      replace: true,
 	      template: function(el, attrs) {
-	        var action, attr, form, formAttributes, input, inputReplacer, inputTpl, modelName, row, rowReplacer, rowTpl, tplEl, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
+	        var action, attr, form, formAttributes, input, inputReplacer, inputTpl, modelName, root, row, rowReplacer, rowTpl, tplEl, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
 	        inputTpl = $templateCache.get('templates/fs/metaInput.html');
 	        rowTpl = $templateCache.get('templates/fs/metaRow.html');
 	        modelName = el.attr("model");
@@ -610,10 +627,13 @@
 	          return rowTpl.replace(/::label/g, label).replace(/::content/, row.html());
 	        };
 	        tplEl = el.clone();
+	        root = tplEl[0];
 	        _ref1 = tplEl.find("fs-input");
 	        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
 	          input = _ref1[_j];
-	          angular.element(input).replaceWith(inputReplacer(input));
+	          if (isDirectChild(root, input)) {
+	            angular.element(input).replaceWith(inputReplacer(input));
+	          }
 	        }
 	        _ref2 = tplEl.find("fs-row");
 	        for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
