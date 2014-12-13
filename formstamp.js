@@ -188,44 +188,46 @@
 	          return ensureHighlightedItemVisible();
 	        });
 	      },
-	      controller: function($scope, $element, $attrs, $filter) {
-	        var updateSelectedItem;
-	        updateSelectedItem = function(hlIdx) {
-	          if ($scope.$parent.listInterface != null) {
-	            return $scope.$parent.listInterface.selectedItem = $scope.items[hlIdx];
-	          }
-	        };
-	        $scope.highlightItem = function(item) {
-	          $scope.highlightIndex = $scope.items.indexOf(item);
-	          if ($scope.$parent.listInterface != null) {
-	            return $scope.$parent.listInterface.onSelect(item);
-	          }
-	        };
-	        $scope.$watch('items', function(newItems) {
-	          $scope.highlightIndex = 0;
-	          return updateSelectedItem(0);
-	        });
-	        $scope.$watch('highlightIndex', function(idx) {
-	          return updateSelectedItem(idx);
-	        });
-	        $scope.move = function(d) {
-	          var items;
-	          items = $scope.items;
-	          $scope.highlightIndex += d;
-	          if ($scope.highlightIndex === -1) {
-	            $scope.highlightIndex = items.length - 1;
-	          }
-	          if ($scope.highlightIndex >= items.length) {
-	            return $scope.highlightIndex = 0;
-	          }
-	        };
-	        $scope.highlightIndex = 0;
-	        if ($scope.$parent.listInterface != null) {
-	          return $scope.$parent.listInterface.move = function(delta) {
-	            return $scope.move(delta);
+	      controller: [
+	        '$scope', '$element', '$attrs', '$filter', function($scope, $element, $attrs, $filter) {
+	          var updateSelectedItem;
+	          updateSelectedItem = function(hlIdx) {
+	            if ($scope.$parent.listInterface != null) {
+	              return $scope.$parent.listInterface.selectedItem = $scope.items[hlIdx];
+	            }
 	          };
+	          $scope.highlightItem = function(item) {
+	            $scope.highlightIndex = $scope.items.indexOf(item);
+	            if ($scope.$parent.listInterface != null) {
+	              return $scope.$parent.listInterface.onSelect(item);
+	            }
+	          };
+	          $scope.$watch('items', function(newItems) {
+	            $scope.highlightIndex = 0;
+	            return updateSelectedItem(0);
+	          });
+	          $scope.$watch('highlightIndex', function(idx) {
+	            return updateSelectedItem(idx);
+	          });
+	          $scope.move = function(d) {
+	            var items;
+	            items = $scope.items;
+	            $scope.highlightIndex += d;
+	            if ($scope.highlightIndex === -1) {
+	              $scope.highlightIndex = items.length - 1;
+	            }
+	            if ($scope.highlightIndex >= items.length) {
+	              return $scope.highlightIndex = 0;
+	            }
+	          };
+	          $scope.highlightIndex = 0;
+	          if ($scope.$parent.listInterface != null) {
+	            return $scope.$parent.listInterface.move = function(delta) {
+	              return $scope.move(delta);
+	            };
+	          }
 	        }
-	      }
+	      ]
 	    };
 	  }
 	]);
@@ -355,7 +357,7 @@
 	__webpack_require__(39);
 
 	mod.directive("fsCheckbox", [
-	  '$window', '$templateCache', function($window, $templateCache) {
+	  '$templateCache', function($templateCache) {
 	    return {
 	      restrict: "A",
 	      scope: {
@@ -372,26 +374,28 @@
 	        itemTpl = el.html() || 'template me: {{item | json}}';
 	        return $templateCache.get('templates/fs/metaCheckbox.html').replace(/::itemTpl/g, itemTpl);
 	      },
-	      controller: function($scope, $element, $attrs) {
-	        $scope.toggle = function(item) {
-	          if ($scope.disabled) {
-	            return;
-	          }
-	          if (!$scope.isSelected(item)) {
-	            $scope.selectedItems.push(item);
-	          } else {
-	            $scope.selectedItems.splice(u.indexOf($scope.selectedItems, item), 1);
-	          }
-	          return false;
-	        };
-	        $scope.isSelected = function(item) {
-	          return u.indexOf($scope.selectedItems, item) > -1;
-	        };
-	        $scope.invalid = function() {
-	          return ($scope.errors != null) && $scope.errors.length > 0;
-	        };
-	        return $scope.selectedItems = [];
-	      },
+	      controller: [
+	        '$scope', '$element', '$attrs', function($scope, $element, $attrs) {
+	          $scope.toggle = function(item) {
+	            if ($scope.disabled) {
+	              return;
+	            }
+	            if (!$scope.isSelected(item)) {
+	              $scope.selectedItems.push(item);
+	            } else {
+	              $scope.selectedItems.splice(u.indexOf($scope.selectedItems, item), 1);
+	            }
+	            return false;
+	          };
+	          $scope.isSelected = function(item) {
+	            return u.indexOf($scope.selectedItems, item) > -1;
+	          };
+	          $scope.invalid = function() {
+	            return ($scope.errors != null) && $scope.errors.length > 0;
+	          };
+	          return $scope.selectedItems = [];
+	        }
+	      ],
 	      link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
 	        var setViewValue;
 	        if (ngModelCtrl) {
@@ -425,68 +429,66 @@
 
 	__webpack_require__(40);
 
-	mod.directive('fsField', [
-	  function() {
-	    return {
-	      restrict: 'A',
-	      replace: true,
-	      require: ['^fsFormFor', '^form'],
-	      templateUrl: 'templates/fs/field.html',
-	      scope: {
-	        items: '=',
-	        field: '@fsField',
-	        type: '@',
-	        label: '@'
-	      },
-	      compile: function(tElement, tAttrs) {
-	        var inputDiv, inputDivRaw, type;
-	        type = tAttrs.type;
-	        inputDivRaw = tElement[0].querySelector('.fs-field-input');
-	        inputDiv = angular.element(inputDivRaw);
-	        angular.element(inputDiv).attr(type, '');
-	        angular.forEach(VALIDATION_DIRECTIVES, function(dir) {
-	          if (tAttrs[dir]) {
-	            return inputDiv.attr(tAttrs.$attr[dir], tAttrs[dir]);
-	          }
-	        });
-	        inputDiv.attr('name', tAttrs.fsField);
-	        return function(scope, element, attrs, ctrls) {
-	          var formCtrl, formForCtrl;
-	          formForCtrl = ctrls[0];
-	          formCtrl = ctrls[1];
-	          scope.object = formForCtrl.getObject();
-	          scope.objectName = formForCtrl.getObjectName();
-	          formCtrl = element.parent().controller('form');
-	          scope.defaultErrors = {
-	            'required': 'This field is required!',
-	            'pattern': 'This field should match pattern!',
-	            'minlength': 'This field should be longer!',
-	            'maxlength': 'This field should be shorter!'
-	          };
-	          scope.hasErrorFor = function(validityName) {
-	            return formCtrl[scope.field].$error[validityName];
-	          };
-	          return scope.$watch(function() {
-	            var errs;
-	            if (!formCtrl.$dirty) {
-	              return;
-	            }
-	            scope.validationErrors = [];
-	            angular.forEach(scope.defaultErrors, function(value, key) {
-	              if (scope.hasErrorFor(key)) {
-	                return scope.validationErrors.push(value);
-	              }
-	            });
-	            if (scope.object.$error && (errs = scope.object.$error[scope.field])) {
-	              scope.validationErrors = scope.validationErrors.concat(errs);
-	            }
-	            console.log(scope.validationErrors);
-	          });
+	mod.directive('fsField', function() {
+	  return {
+	    restrict: 'A',
+	    replace: true,
+	    require: ['^fsFormFor', '^form'],
+	    templateUrl: 'templates/fs/field.html',
+	    scope: {
+	      items: '=',
+	      field: '@fsField',
+	      type: '@',
+	      label: '@'
+	    },
+	    compile: function(tElement, tAttrs) {
+	      var inputDiv, inputDivRaw, type;
+	      type = tAttrs.type;
+	      inputDivRaw = tElement[0].querySelector('.fs-field-input');
+	      inputDiv = angular.element(inputDivRaw);
+	      angular.element(inputDiv).attr(type, '');
+	      angular.forEach(VALIDATION_DIRECTIVES, function(dir) {
+	        if (tAttrs[dir]) {
+	          return inputDiv.attr(tAttrs.$attr[dir], tAttrs[dir]);
+	        }
+	      });
+	      inputDiv.attr('name', tAttrs.fsField);
+	      return function(scope, element, attrs, ctrls) {
+	        var formCtrl, formForCtrl;
+	        formForCtrl = ctrls[0];
+	        formCtrl = ctrls[1];
+	        scope.object = formForCtrl.getObject();
+	        scope.objectName = formForCtrl.getObjectName();
+	        formCtrl = element.parent().controller('form');
+	        scope.defaultErrors = {
+	          'required': 'This field is required!',
+	          'pattern': 'This field should match pattern!',
+	          'minlength': 'This field should be longer!',
+	          'maxlength': 'This field should be shorter!'
 	        };
-	      }
-	    };
-	  }
-	]);
+	        scope.hasErrorFor = function(validityName) {
+	          return formCtrl[scope.field].$error[validityName];
+	        };
+	        return scope.$watch(function() {
+	          var errs;
+	          if (!formCtrl.$dirty) {
+	            return;
+	          }
+	          scope.validationErrors = [];
+	          angular.forEach(scope.defaultErrors, function(value, key) {
+	            if (scope.hasErrorFor(key)) {
+	              return scope.validationErrors.push(value);
+	            }
+	          });
+	          if (scope.object.$error && (errs = scope.object.$error[scope.field])) {
+	            scope.validationErrors = scope.validationErrors.concat(errs);
+	          }
+	          console.log(scope.validationErrors);
+	        });
+	      };
+	    }
+	  };
+	});
 
 
 /***/ },
@@ -524,27 +526,29 @@
 	      },
 	      replace: true,
 	      template: $templateCache.get('templates/fs/errors.html'),
-	      controller: function($scope) {
-	        var errorsWatcher, makeMessage;
-	        makeMessage = function(idn) {
-	          return "Error happened: " + idn;
-	        };
-	        errorsWatcher = function(newErrors) {
-	          var errorIdn, occured;
-	          return $scope.messages = (function() {
-	            var _results;
-	            _results = [];
-	            for (errorIdn in newErrors) {
-	              occured = newErrors[errorIdn];
-	              if (occured) {
-	                _results.push(makeMessage(errorIdn));
+	      controller: [
+	        '$scope', function($scope) {
+	          var errorsWatcher, makeMessage;
+	          makeMessage = function(idn) {
+	            return "Error happened: " + idn;
+	          };
+	          errorsWatcher = function(newErrors) {
+	            var errorIdn, occured;
+	            return $scope.messages = (function() {
+	              var _results;
+	              _results = [];
+	              for (errorIdn in newErrors) {
+	                occured = newErrors[errorIdn];
+	                if (occured) {
+	                  _results.push(makeMessage(errorIdn));
+	                }
 	              }
-	            }
-	            return _results;
-	          })();
-	        };
-	        return $scope.$watch('model.$error', errorsWatcher, true);
-	      }
+	              return _results;
+	            })();
+	          };
+	          return $scope.$watch('model.$error', errorsWatcher, true);
+	        }
+	      ]
 	    };
 	  }
 	]);
@@ -665,7 +669,7 @@
 	__webpack_require__(44);
 
 	mod.directive("fsSelect", [
-	  '$compile', '$templateCache', function($compile, $templateCache) {
+	  '$templateCache', function($templateCache) {
 	    return {
 	      restrict: "A",
 	      scope: {
@@ -681,64 +685,66 @@
 	        itemTpl = el.html();
 	        return $templateCache.get('templates/fs/metaSelect.html').replace(/::itemTpl/g, itemTpl);
 	      },
-	      controller: function($scope, $element, $attrs, $filter, $timeout) {
-	        var updateDropdown;
-	        $scope.active = false;
-	        if ($attrs.freetext != null) {
-	          $scope.dynamicItems = function() {
-	            if ($scope.search) {
-	              return [$scope.search];
-	            } else {
+	      controller: [
+	        '$scope', '$element', '$attrs', '$filter', '$timeout', function($scope, $element, $attrs, $filter, $timeout) {
+	          var updateDropdown;
+	          $scope.active = false;
+	          if ($attrs.freetext != null) {
+	            $scope.dynamicItems = function() {
+	              if ($scope.search) {
+	                return [$scope.search];
+	              } else {
+	                return [];
+	              }
+	            };
+	          } else {
+	            $scope.dynamicItems = function() {
 	              return [];
+	            };
+	          }
+	          updateDropdown = function() {
+	            return $scope.dropdownItems = $filter('filter')($scope.items || [], $scope.search).concat($scope.dynamicItems());
+	          };
+	          $scope.$watch('active', function(q) {
+	            return updateDropdown();
+	          });
+	          $scope.$watch('search', function(q) {
+	            return updateDropdown();
+	          });
+	          $scope.selectItem = function(item) {
+	            $scope.item = item;
+	            $scope.search = "";
+	            return $scope.active = false;
+	          };
+	          $scope.unselectItem = function(item) {
+	            return $scope.item = null;
+	          };
+	          $scope.onBlur = function() {
+	            return $timeout(function() {
+	              $scope.active = false;
+	              return $scope.search = '';
+	            }, 0, true);
+	          };
+	          $scope.move = function(d) {
+	            return $scope.listInterface.move && $scope.listInterface.move(d);
+	          };
+	          $scope.onEnter = function(event) {
+	            if ($scope.dropdownItems.length > 0) {
+	              return $scope.selectItem($scope.listInterface.selectedItem);
+	            } else {
+	              return $scope.selectItem(null);
 	            }
 	          };
-	        } else {
-	          $scope.dynamicItems = function() {
-	            return [];
+	          return $scope.listInterface = {
+	            onSelect: function(selectedItem) {
+	              return $scope.selectItem(selectedItem);
+	            },
+	            move: function() {
+	              return console.log("not-implemented listInterface.move() function");
+	            }
 	          };
 	        }
-	        updateDropdown = function() {
-	          return $scope.dropdownItems = $filter('filter')($scope.items || [], $scope.search).concat($scope.dynamicItems());
-	        };
-	        $scope.$watch('active', function(q) {
-	          return updateDropdown();
-	        });
-	        $scope.$watch('search', function(q) {
-	          return updateDropdown();
-	        });
-	        $scope.selectItem = function(item) {
-	          $scope.item = item;
-	          $scope.search = "";
-	          return $scope.active = false;
-	        };
-	        $scope.unselectItem = function(item) {
-	          return $scope.item = null;
-	        };
-	        $scope.onBlur = function() {
-	          return $timeout(function() {
-	            $scope.active = false;
-	            return $scope.search = '';
-	          }, 0, true);
-	        };
-	        $scope.move = function(d) {
-	          return $scope.listInterface.move && $scope.listInterface.move(d);
-	        };
-	        $scope.onEnter = function(event) {
-	          if ($scope.dropdownItems.length > 0) {
-	            return $scope.selectItem($scope.listInterface.selectedItem);
-	          } else {
-	            return $scope.selectItem(null);
-	          }
-	        };
-	        return $scope.listInterface = {
-	          onSelect: function(selectedItem) {
-	            return $scope.selectItem(selectedItem);
-	          },
-	          move: function() {
-	            return console.log("not-implemented listInterface.move() function");
-	          }
-	        };
-	      },
+	      ],
 	      link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
 	        if (ngModelCtrl) {
 	          scope.$watch('item', function(newValue, oldValue) {
@@ -787,7 +793,7 @@
 	});
 
 	mod.directive("fsMultiselect", [
-	  '$window', '$templateCache', function($window, $templateCache) {
+	  '$templateCache', function($templateCache) {
 	    return {
 	      restrict: "A",
 	      scope: {
@@ -804,68 +810,70 @@
 	        itemTpl = el.html() || defaultItemTpl;
 	        return $templateCache.get('templates/fs/multiselect.html').replace(/::item-template/g, itemTpl);
 	      },
-	      controller: function($scope, $element, $attrs, $filter) {
-	        if ($attrs.freetext != null) {
-	          $scope.dynamicItems = function() {
-	            if ($scope.search) {
-	              return [$scope.search];
-	            } else {
+	      controller: [
+	        '$scope', '$element', '$attrs', '$filter', function($scope, $element, $attrs, $filter) {
+	          if ($attrs.freetext != null) {
+	            $scope.dynamicItems = function() {
+	              if ($scope.search) {
+	                return [$scope.search];
+	              } else {
+	                return [];
+	              }
+	            };
+	          } else {
+	            $scope.dynamicItems = function() {
 	              return [];
+	            };
+	          }
+	          $scope.updateDropdownItems = function() {
+	            var allItems, excludeFilter, searchFilter;
+	            searchFilter = $filter('filter');
+	            excludeFilter = $filter('exclude');
+	            allItems = ($scope.items || []).concat($scope.dynamicItems());
+	            return $scope.dropdownItems = searchFilter(excludeFilter(allItems, $scope.selectedItems), $scope.search);
+	          };
+	          $scope.selectItem = function(item) {
+	            if ((item != null) && u.indexOf($scope.selectedItems, item) === -1) {
+	              $scope.selectedItems = $scope.selectedItems.concat([item]);
+	            }
+	            return $scope.search = '';
+	          };
+	          $scope.unselectItem = function(item) {
+	            var index;
+	            index = u.indexOf($scope.selectedItems, item);
+	            if (index > -1) {
+	              return $scope.selectedItems.splice(index, 1);
 	            }
 	          };
-	        } else {
-	          $scope.dynamicItems = function() {
-	            return [];
+	          $scope.onBlur = function() {
+	            $scope.active = false;
+	            return $scope.search = '';
 	          };
-	        }
-	        $scope.updateDropdownItems = function() {
-	          var allItems, excludeFilter, searchFilter;
-	          searchFilter = $filter('filter');
-	          excludeFilter = $filter('exclude');
-	          allItems = ($scope.items || []).concat($scope.dynamicItems());
-	          return $scope.dropdownItems = searchFilter(excludeFilter(allItems, $scope.selectedItems), $scope.search);
-	        };
-	        $scope.selectItem = function(item) {
-	          if ((item != null) && u.indexOf($scope.selectedItems, item) === -1) {
-	            $scope.selectedItems = $scope.selectedItems.concat([item]);
-	          }
-	          return $scope.search = '';
-	        };
-	        $scope.unselectItem = function(item) {
-	          var index;
-	          index = u.indexOf($scope.selectedItems, item);
-	          if (index > -1) {
-	            return $scope.selectedItems.splice(index, 1);
-	          }
-	        };
-	        $scope.onBlur = function() {
+	          $scope.onEnter = function() {
+	            return $scope.selectItem($scope.dropdownItems.length > 0 ? $scope.listInterface.selectedItem : null);
+	          };
+	          $scope.listInterface = {
+	            onSelect: function(selectedItem) {
+	              return $scope.selectItem(selectedItem);
+	            },
+	            move: function() {
+	              return console.log("not-implemented listInterface.move() function");
+	            }
+	          };
+	          $scope.dropdownItems = [];
 	          $scope.active = false;
-	          return $scope.search = '';
-	        };
-	        $scope.onEnter = function() {
-	          return $scope.selectItem($scope.dropdownItems.length > 0 ? $scope.listInterface.selectedItem : null);
-	        };
-	        $scope.listInterface = {
-	          onSelect: function(selectedItem) {
-	            return $scope.selectItem(selectedItem);
-	          },
-	          move: function() {
-	            return console.log("not-implemented listInterface.move() function");
-	          }
-	        };
-	        $scope.dropdownItems = [];
-	        $scope.active = false;
-	        $scope.$watchCollection('selectedItems', function() {
+	          $scope.$watchCollection('selectedItems', function() {
+	            return $scope.updateDropdownItems();
+	          });
+	          $scope.$watchCollection('items', function() {
+	            return $scope.updateDropdownItems();
+	          });
+	          $scope.$watch('search', function() {
+	            return $scope.updateDropdownItems();
+	          });
 	          return $scope.updateDropdownItems();
-	        });
-	        $scope.$watchCollection('items', function() {
-	          return $scope.updateDropdownItems();
-	        });
-	        $scope.$watch('search', function() {
-	          return $scope.updateDropdownItems();
-	        });
-	        return $scope.updateDropdownItems();
-	      },
+	        }
+	      ],
 	      link: function($scope, element, attrs, ngModelCtrl, transcludeFn) {
 	        var setViewValue;
 	        if (ngModelCtrl) {
@@ -1323,7 +1331,7 @@
 	__webpack_require__(11);
 
 	mod.directive('fsDateFormat', [
-	  '$locale', '$filter', '$dateParser', function($locale, $filter, $dateParser) {
+	  '$filter', '$dateParser', function($filter, $dateParser) {
 	    return {
 	      restrict: 'A',
 	      require: 'ngModel',
@@ -1613,71 +1621,71 @@
 
 	u = __webpack_require__(17);
 
-	mod.directive("fsDatetime", [
-	  '$compile', function($compile) {
-	    return {
-	      restrict: "A",
-	      scope: {
-	        disabled: '=ngDisabled',
-	        "class": '@'
-	      },
-	      require: '?ngModel',
-	      replace: true,
-	      templateUrl: 'templates/fs/datetime.html',
-	      controller: function($scope) {
+	mod.directive("fsDatetime", function() {
+	  return {
+	    restrict: "A",
+	    scope: {
+	      disabled: '=ngDisabled',
+	      "class": '@'
+	    },
+	    require: '?ngModel',
+	    replace: true,
+	    templateUrl: 'templates/fs/datetime.html',
+	    controller: [
+	      '$scope', function($scope) {
 	        return $scope.clearDate = function() {
 	          $scope.time = null;
 	          $scope.date = null;
 	          return $scope.value = null;
 	        };
-	      },
-	      link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
-	        if (ngModelCtrl) {
-	          scope.value = null;
-	          scope.$watch('time', function(newValue, oldValue) {
-	            var hours, minutes, parts;
-	            if (!angular.equals(newValue, oldValue)) {
-	              if (newValue) {
-	                parts = newValue.split(':');
-	                minutes = parseInt(parts[1]) || 0;
-	                hours = parseInt(parts[0]) || 0;
-	                scope.value || (scope.value = new Date());
-	                scope.value = angular.copy(scope.value);
-	                scope.value.setHours(hours);
-	                scope.value.setMinutes(minutes);
-	                scope.value.setSeconds(0);
-	                return scope.value.setMilliseconds(0);
-	              }
-	            }
-	          });
-	          scope.$watch('date', function(newValue, oldValue) {
-	            if (!angular.equals(newValue, oldValue)) {
-	              if (newValue) {
-	                scope.value || (scope.value = new Date());
-	                scope.value = angular.copy(scope.value);
-	                scope.value.setDate(newValue.getDate());
-	                scope.value.setMonth(newValue.getMonth());
-	                return scope.value.setFullYear(newValue.getFullYear());
-	              }
-	            }
-	          });
-	          scope.$watch('value', function(newValue, oldValue) {
-	            if (!angular.equals(newValue, oldValue)) {
-	              return ngModelCtrl.$setViewValue(scope.value);
-	            }
-	          });
-	          return ngModelCtrl.$render = function() {
-	            scope.date = scope.value = ngModelCtrl.$viewValue;
-	            return scope.time = ngModelCtrl.$viewValue ? u.toTimeStr({
-	              hours: ngModelCtrl.$viewValue.getHours(),
-	              minutes: ngModelCtrl.$viewValue.getMinutes()
-	            }) : null;
-	          };
-	        }
 	      }
-	    };
-	  }
-	]);
+	    ],
+	    link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+	      if (ngModelCtrl) {
+	        scope.value = null;
+	        scope.$watch('time', function(newValue, oldValue) {
+	          var hours, minutes, parts;
+	          if (!angular.equals(newValue, oldValue)) {
+	            if (newValue) {
+	              parts = newValue.split(':');
+	              minutes = parseInt(parts[1]) || 0;
+	              hours = parseInt(parts[0]) || 0;
+	              scope.value || (scope.value = new Date());
+	              scope.value = angular.copy(scope.value);
+	              scope.value.setHours(hours);
+	              scope.value.setMinutes(minutes);
+	              scope.value.setSeconds(0);
+	              return scope.value.setMilliseconds(0);
+	            }
+	          }
+	        });
+	        scope.$watch('date', function(newValue, oldValue) {
+	          if (!angular.equals(newValue, oldValue)) {
+	            if (newValue) {
+	              scope.value || (scope.value = new Date());
+	              scope.value = angular.copy(scope.value);
+	              scope.value.setDate(newValue.getDate());
+	              scope.value.setMonth(newValue.getMonth());
+	              return scope.value.setFullYear(newValue.getFullYear());
+	            }
+	          }
+	        });
+	        scope.$watch('value', function(newValue, oldValue) {
+	          if (!angular.equals(newValue, oldValue)) {
+	            return ngModelCtrl.$setViewValue(scope.value);
+	          }
+	        });
+	        return ngModelCtrl.$render = function() {
+	          scope.date = scope.value = ngModelCtrl.$viewValue;
+	          return scope.time = ngModelCtrl.$viewValue ? u.toTimeStr({
+	            hours: ngModelCtrl.$viewValue.getHours(),
+	            minutes: ngModelCtrl.$viewValue.getMinutes()
+	          }) : null;
+	        };
+	      }
+	    }
+	  };
+	});
 
 
 /***/ },
