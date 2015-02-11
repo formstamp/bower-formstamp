@@ -82,7 +82,7 @@ Install bower dependencies and node.js packages
 ```sh
   cd formstamp
   nvm use 0.10
-  npm install
+  npm install && cd demo && npm install && cd ..
 ```
 
 Build, start demo server and start watching changes using
@@ -126,6 +126,11 @@ To build bower package in dist/ run:
 ```sh
 npm run-script build
 ```
+
+Release Notes
+-------------
+
+To see what has changed in recent versions, see the [CHANGELOG](https://github.com/formstamp/formstamp/blob/master/CHANGELOG.md).
 
 License
 -------
