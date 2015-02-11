@@ -1370,7 +1370,7 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(47);
+	__webpack_require__(46);
 
 	u = __webpack_require__(19);
 
@@ -1418,7 +1418,7 @@
 
 	__webpack_require__(32);
 
-	__webpack_require__(46);
+	__webpack_require__(47);
 
 	u = __webpack_require__(19);
 
@@ -2054,16 +2054,16 @@
 /* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var v1="<div class=\"fs-calendar\" data-ng-switch=\"selectionMode\"> <div data-ng-switch-when=\"year\"> <div class=\"fs-calendar-header\"> <span class=\"fs-calendar-prev\" data-ng-click=\"prevYearRange()\"></span>\n<span class=\"fs-calendar-title\" data-ng-click=\"switchSelectionMode()\"> {{ years[0] }}-{{ years[years.length-1] }} </span>\n<span class=\"fs-calendar-next\" data-ng-click=\"nextYearRange()\"></span> </div> <table class=\"table-condensed\"> <tr data-ng-repeat=\"yearGroup in yearGroups\"> <td data-ng-repeat=\"year in yearGroup\" data-ng-click=\"selectYear(year)\" data-ng-class=\"{'active': year == selectedYear}\" class=\"year\"> {{ year }} </td> </tr> </table> </div> <div data-ng-switch-when=\"month\"> <div class=\"fs-calendar-header\"> <span class=\"fs-calendar-prev\" data-ng-click=\"prevYear()\"></span>\n<span class=\"fs-calendar-title\" data-ng-click=\"switchSelectionMode()\"> {{ selectedYear }} </span>\n<span class=\"fs-calendar-next\" data-ng-click=\"nextYear()\"></span> </div> <table class=\"table-condensed\"> <tr data-ng-repeat=\"monthGroup in monthGroups\"> <td data-ng-repeat=\"month in monthGroup\" data-ng-click=\"selectMonth(month)\" data-ng-class=\"{'active': month == selectedMonth && isSameYear()}\" class=\"month\"> {{ month }} </td> </tr> </table> </div> <div data-ng-switch-default> <div class=\"fs-calendar-header\"> <span class=\"fs-calendar-prev\" data-ng-click=\"prevMonth()\"></span>\n<span class=\"fs-calendar-title\" data-ng-click=\"switchSelectionMode()\"> {{ selectedMonth + ', ' + selectedYear }} </span>\n<span class=\"fs-calendar-next\" data-ng-click=\"nextMonth()\"></span> </div> <table class=\"table-condensed\"> <thead> <tr> <th data-ng-repeat=\"weekDay in weekDays\"> {{ weekDay }} </th> </tr> </thead> <tbody> <tr data-ng-repeat=\"week in weeks\"> <td data-ng-repeat=\"day in week\" class=\"day\" data-ng-class=\"{'day-in-selected-month': isDayInSelectedMonth(day),\n                       'day-current': isCurrentDate(day),\n                       'active bg-info': isSelectedDate(day)}\" data-ng-click=\"selectDay(day)\"> {{ day.getDate() }} </td> </tr> </tbody> </table> </div> </div>";
-	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/calendar.html", v1)}]);
+	var v1="<div class=\"fs-date fs-widget-root\"> <input fs-input fs-focus-when=\"active\" fs-blur-when=\"!active\" fs-on-focus=\"active = true\" fs-on-blur=\"active = false\" fs-hold-focus fs-esc=\"active = false\" type=\"text\" ng-disabled=\"disabled\" class=\"form-control\" ng-model=\"selectedDate.date\" fs-date-format=\"{{format}}\" placeholder=\"{{placeholder}}\" fs-null-form/>\n<span class=\"glyphicon glyphicon-calendar\" ng-click=\"active = !disabled\"></span> <div ng-if=\"!disabled && active\" class=\"open fs-calendar-wrapper\"> <div class=\"dropdown-menu\"> <fs-calendar ng-model=\"selectedDate.date\" on-select=\"close()\"/> </div> </div> </div>";
+	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/date.html", v1)}]);
 	module.exports=v1;
 
 /***/ },
 /* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var v1="<div class=\"fs-date fs-widget-root\"> <input fs-input fs-focus-when=\"active\" fs-blur-when=\"!active\" fs-on-focus=\"active = true\" fs-on-blur=\"active = false\" fs-hold-focus fs-esc=\"active = false\" type=\"text\" ng-disabled=\"disabled\" class=\"form-control\" ng-model=\"selectedDate.date\" fs-date-format=\"{{format}}\" placeholder=\"{{placeholder}}\" fs-null-form/>\n<span class=\"glyphicon glyphicon-calendar\" ng-click=\"active = !disabled\"></span> <div ng-if=\"!disabled && active\" class=\"open fs-calendar-wrapper\"> <div class=\"dropdown-menu\"> <fs-calendar ng-model=\"selectedDate.date\" on-select=\"close()\"/> </div> </div> </div>";
-	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/date.html", v1)}]);
+	var v1="<div class=\"fs-calendar\" data-ng-switch=\"selectionMode\"> <div data-ng-switch-when=\"year\"> <div class=\"fs-calendar-header\"> <span class=\"fs-calendar-prev\" data-ng-click=\"prevYearRange()\"></span>\n<span class=\"fs-calendar-title\" data-ng-click=\"switchSelectionMode()\"> {{ years[0] }}-{{ years[years.length-1] }} </span>\n<span class=\"fs-calendar-next\" data-ng-click=\"nextYearRange()\"></span> </div> <table class=\"table-condensed\"> <tr data-ng-repeat=\"yearGroup in yearGroups\"> <td data-ng-repeat=\"year in yearGroup\" data-ng-click=\"selectYear(year)\" data-ng-class=\"{'active': year == selectedYear}\" class=\"year\"> {{ year }} </td> </tr> </table> </div> <div data-ng-switch-when=\"month\"> <div class=\"fs-calendar-header\"> <span class=\"fs-calendar-prev\" data-ng-click=\"prevYear()\"></span>\n<span class=\"fs-calendar-title\" data-ng-click=\"switchSelectionMode()\"> {{ selectedYear }} </span>\n<span class=\"fs-calendar-next\" data-ng-click=\"nextYear()\"></span> </div> <table class=\"table-condensed\"> <tr data-ng-repeat=\"monthGroup in monthGroups\"> <td data-ng-repeat=\"month in monthGroup\" data-ng-click=\"selectMonth(month)\" data-ng-class=\"{'active': month == selectedMonth && isSameYear()}\" class=\"month\"> {{ month }} </td> </tr> </table> </div> <div data-ng-switch-default> <div class=\"fs-calendar-header\"> <span class=\"fs-calendar-prev\" data-ng-click=\"prevMonth()\"></span>\n<span class=\"fs-calendar-title\" data-ng-click=\"switchSelectionMode()\"> {{ selectedMonth + ', ' + selectedYear }} </span>\n<span class=\"fs-calendar-next\" data-ng-click=\"nextMonth()\"></span> </div> <table class=\"table-condensed\"> <thead> <tr> <th data-ng-repeat=\"weekDay in weekDays\"> {{ weekDay }} </th> </tr> </thead> <tbody> <tr data-ng-repeat=\"week in weeks\"> <td data-ng-repeat=\"day in week\" class=\"day\" data-ng-class=\"{'day-in-selected-month': isDayInSelectedMonth(day),\n                       'day-current': isCurrentDate(day),\n                       'active bg-info': isSelectedDate(day)}\" data-ng-click=\"selectDay(day)\"> {{ day.getDate() }} </td> </tr> </tbody> </table> </div> </div>";
+	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/calendar.html", v1)}]);
 	module.exports=v1;
 
 /***/ },
