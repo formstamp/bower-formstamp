@@ -602,7 +602,7 @@
 	              attr = _ref[_i];
 	              attributes[attr.name] = attr.value;
 	            }
-	            attributes['ng-model'] = modelName + "." + name;
+	            attributes['ng-model'] = "" + modelName + "." + name;
 	            attributes['name'] = name;
 	            delete attributes['as'];
 	            if (type.indexOf("fs-") === 0) {
@@ -976,7 +976,7 @@
 	    zh = h < 10 ? "0" + h : h;
 	    for (_j = 0, _len1 = minutes.length; _j < _len1; _j++) {
 	      m = minutes[_j];
-	      items.push(zh + ":" + m);
+	      items.push("" + zh + ":" + m);
 	    }
 	  }
 	  return items;
@@ -1370,7 +1370,7 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(47);
+	__webpack_require__(49);
 
 	u = __webpack_require__(19);
 
@@ -1416,7 +1416,7 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(33);
+	__webpack_require__(35);
 
 	__webpack_require__(48);
 
@@ -1612,11 +1612,11 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(49);
+	__webpack_require__(47);
 
 	__webpack_require__(27);
 
-	__webpack_require__(35);
+	__webpack_require__(33);
 
 	u = __webpack_require__(19);
 
@@ -1877,7 +1877,7 @@
 	  if ((m != null ? m.length : void 0) < 2) {
 	    m = "0" + m;
 	  }
-	  return h + ":" + m;
+	  return "" + h + ":" + m;
 	};
 
 
@@ -2055,8 +2055,8 @@
 /* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var v1="<div class=\"fs-date fs-widget-root\"> <input fs-input fs-focus-when=\"active\" fs-blur-when=\"!active\" fs-on-focus=\"active = true\" fs-on-blur=\"active = false\" fs-hold-focus fs-esc=\"active = false\" type=\"text\" ng-disabled=\"disabled\" class=\"form-control\" ng-model=\"selectedDate.date\" fs-date-format=\"{{format}}\" placeholder=\"{{placeholder}}\" fs-null-form/>\n<span class=\"glyphicon glyphicon-calendar\" ng-click=\"active = !disabled\"></span> <div ng-if=\"!disabled && active\" class=\"open fs-calendar-wrapper\"> <div class=\"dropdown-menu\"> <fs-calendar ng-model=\"selectedDate.date\" on-select=\"close()\"/> </div> </div> </div>";
-	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/date.html", v1)}]);
+	var v1="<div class=\"fs-datetime fs-widget-root\" ng-class=\"{ &quot;fs-with-value&quot;: value }\"> <div fs-date ng-model=\"date\" ng-disabled=\"disabled\" fs-null-form></div> <div fs-time ng-model=\"time\" ng-disabled=\"disabled\" fs-null-form with-date></div> <button type=\"button\" class=\"btn btn-default fs-close\" ng-show=\"value\" ng-disabled=\"disabled\" ng-click=\"clearDate()\"></button> </div>";
+	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/datetime.html", v1)}]);
 	module.exports=v1;
 
 /***/ },
@@ -2071,8 +2071,8 @@
 /* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var v1="<div class=\"fs-datetime fs-widget-root\" ng-class=\"{ &quot;fs-with-value&quot;: value }\"> <div fs-date ng-model=\"date\" ng-disabled=\"disabled\" fs-null-form></div> <div fs-time ng-model=\"time\" ng-disabled=\"disabled\" fs-null-form with-date></div> <button type=\"button\" class=\"btn btn-default fs-close\" ng-show=\"value\" ng-disabled=\"disabled\" ng-click=\"clearDate()\"></button> </div>";
-	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/datetime.html", v1)}]);
+	var v1="<div class=\"fs-date fs-widget-root\"> <input fs-input fs-focus-when=\"active\" fs-blur-when=\"!active\" fs-on-focus=\"active = true\" fs-on-blur=\"active = false\" fs-hold-focus fs-esc=\"active = false\" type=\"text\" ng-disabled=\"disabled\" class=\"form-control\" ng-model=\"selectedDate.date\" fs-date-format=\"{{format}}\" placeholder=\"{{placeholder}}\" fs-null-form/>\n<span class=\"glyphicon glyphicon-calendar\" ng-click=\"active = !disabled\"></span> <div ng-if=\"!disabled && active\" class=\"open fs-calendar-wrapper\"> <div class=\"dropdown-menu\"> <fs-calendar ng-model=\"selectedDate.date\" on-select=\"close()\"/> </div> </div> </div>";
+	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/date.html", v1)}]);
 	module.exports=v1;
 
 /***/ }
