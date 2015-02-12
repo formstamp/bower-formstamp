@@ -101,11 +101,11 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(22);
+	__webpack_require__(23);
 
 	u = __webpack_require__(19);
 
-	__webpack_require__(36);
+	__webpack_require__(37);
 
 	mod.directive("fsRadio", [
 	  '$templateCache', function($templateCache) {
@@ -151,9 +151,9 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(24);
+	__webpack_require__(25);
 
-	__webpack_require__(37);
+	__webpack_require__(38);
 
 	u = __webpack_require__(19);
 
@@ -350,7 +350,7 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(22);
+	__webpack_require__(23);
 
 	u = __webpack_require__(19);
 
@@ -427,7 +427,7 @@
 
 	VALIDATION_DIRECTIVES = ['ngRequired', 'ngMinlength', 'ngMaxlength', 'ngPattern', 'ngDisabled'];
 
-	__webpack_require__(38);
+	__webpack_require__(40);
 
 	mod.directive('fsField', function() {
 	  return {
@@ -500,11 +500,11 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(40);
-
 	__webpack_require__(41);
 
 	__webpack_require__(42);
+
+	__webpack_require__(43);
 
 	setAttrs = function(el, attrs) {
 	  var attr, value, _results;
@@ -602,7 +602,7 @@
 	              attr = _ref[_i];
 	              attributes[attr.name] = attr.value;
 	            }
-	            attributes['ng-model'] = "" + modelName + "." + name;
+	            attributes['ng-model'] = modelName + "." + name;
 	            attributes['name'] = name;
 	            delete attributes['as'];
 	            if (type.indexOf("fs-") === 0) {
@@ -661,9 +661,9 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(26);
+	__webpack_require__(27);
 
-	__webpack_require__(30);
+	__webpack_require__(29);
 
 	__webpack_require__(44);
 
@@ -769,11 +769,11 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(26);
+	__webpack_require__(27);
 
-	__webpack_require__(28);
+	__webpack_require__(31);
 
-	__webpack_require__(43);
+	__webpack_require__(45);
 
 	u = __webpack_require__(19);
 
@@ -900,7 +900,7 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(45);
+	__webpack_require__(46);
 
 	u = __webpack_require__(19);
 
@@ -976,7 +976,7 @@
 	    zh = h < 10 ? "0" + h : h;
 	    for (_j = 0, _len1 = minutes.length; _j < _len1; _j++) {
 	      m = minutes[_j];
-	      items.push("" + zh + ":" + m);
+	      items.push(zh + ":" + m);
 	    }
 	  }
 	  return items;
@@ -1370,7 +1370,7 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(46);
+	__webpack_require__(47);
 
 	u = __webpack_require__(19);
 
@@ -1416,7 +1416,7 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(34);
+	__webpack_require__(33);
 
 	__webpack_require__(48);
 
@@ -1612,11 +1612,11 @@
 
 	mod = __webpack_require__(18);
 
-	__webpack_require__(47);
+	__webpack_require__(49);
 
-	__webpack_require__(26);
+	__webpack_require__(27);
 
-	__webpack_require__(32);
+	__webpack_require__(35);
 
 	u = __webpack_require__(19);
 
@@ -1877,7 +1877,7 @@
 	  if ((m != null ? m.length : void 0) < 2) {
 	    m = "0" + m;
 	  }
-	  return "" + h + ":" + m;
+	  return h + ":" + m;
 	};
 
 
@@ -1922,56 +1922,57 @@
 
 /***/ },
 /* 21 */,
-/* 22 */
+/* 22 */,
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 23 */,
-/* 24 */
+/* 24 */,
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 25 */,
-/* 26 */
+/* 26 */,
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 27 */,
-/* 28 */
+/* 28 */,
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 29 */,
-/* 30 */
+/* 30 */,
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 31 */,
-/* 32 */
+/* 32 */,
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 33 */,
-/* 34 */
+/* 34 */,
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 35 */,
-/* 36 */
+/* 36 */,
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var v1="<div class=\"fs-widget-root fs-radio fs-racheck\" ng-class=\"{disabled: disabled, enabled: !disabled}\"> <div class=\"fs-radio-item\" ng-repeat=\"item in items\"> <input fs-null-form type=\"radio\" ng-model=\"$parent.selectedItem\" name=\"::name\" ng-value=\"item\" ng-disabled=\"disabled\" id=\"::name_{{$index}}\"/> <label for=\"::name_{{$index}}\"> <span class=\"fs-radio-btn\"><span></span></span>\n::itemTpl </label> </div> </div>";
@@ -1979,19 +1980,11 @@
 	module.exports=v1;
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var v1="<div class=\"dropdown open fs-list\"> <ul class=\"dropdown-menu\" role=\"menu\"> <li ng-repeat=\"item in items\" ng-class=\"{true: 'active'}[$index == highlightIndex]\"> <a ng-click=\"highlightItem(item)\" href=\"javascript:void(0)\" tabindex=\"-1\"> <span>::itemTpl</span> </a> </li> </ul> </div>";
 	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/list.html", v1)}]);
-	module.exports=v1;
-
-/***/ },
-/* 38 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var v1="<div class=\"form-group\" ng-class=\"{&quot;has-error&quot;: object.$errors[field].length > 0}\"> <label for=\"{{ objectName }}[{{ field }}]\" class=\"col-sm-2 control-label\">Name</label> <div class=\"col-sm-10\"> <div items=\"items\" invalid=\"object.$errors[field]\" name=\"{{ objectName }}[{{ field }}]\" ng-model=\"object[field]\"></div> <div> <p ng-repeat=\"error in object.$errors[field]\" class=\"text-danger\">{{ error }}</p> </div> </div> </div>";
-	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/field.html", v1)}]);
 	module.exports=v1;
 
 /***/ },
@@ -2006,12 +1999,20 @@
 /* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var v1="<div class=\"form-group\" ng-class=\"{&quot;has-error&quot;: object.$errors[field].length > 0}\"> <label for=\"{{ objectName }}[{{ field }}]\" class=\"col-sm-2 control-label\">Name</label> <div class=\"col-sm-10\"> <div items=\"items\" invalid=\"object.$errors[field]\" name=\"{{ objectName }}[{{ field }}]\" ng-model=\"object[field]\"></div> <div> <p ng-repeat=\"error in object.$errors[field]\" class=\"text-danger\">{{ error }}</p> </div> </div> </div>";
+	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/field.html", v1)}]);
+	module.exports=v1;
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var v1="<div class=\"form-group\" ng-class=\"{'has-error': (::formName.::name.$dirty && ::formName.::name.$invalid)}\"> <label class=\"col-sm-2 control-label\">::label</label> <div class=\"col-sm-10\"> ::content <div fs-errors model=\"::formName.::name\"></div> </div> </div>";
 	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/metaInput.html", v1)}]);
 	module.exports=v1;
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var v1="<div class=\"form-group\"> <label class=\"col-sm-2 control-label\">::label</label> <div class=\"col-sm-10\"> ::content </div> </div>";
@@ -2019,19 +2020,11 @@
 	module.exports=v1;
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var v1="<ul class=\"text-danger fs-errors\" ng-show=\"model.$dirty && messages && messages.length > 0\"> <li ng-repeat=\"msg in messages\">{{ msg }}</li> </ul>";
 	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/errors.html", v1)}]);
-	module.exports=v1;
-
-/***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var v1="<div class=\"fs-multiselect fs-widget-root\" ng-class=\"{ &quot;fs-with-selected-items&quot;: selectedItems.length > 0 }\"> <div class=\"fs-multiselect-wrapper\"> <div class=\"fs-multiselect-selected-items\" ng-if=\"selectedItems.length > 0\"> <a ng-repeat=\"item in selectedItems\" class=\"btn\" ng-click=\"unselectItem(item)\" ng-disabled=\"disabled\"> ::item-template\n<span class=\"fs-close\"></span> </a> </div> <input ng-keydown=\"onkeys($event)\" fs-null-form ng-disabled=\"disabled\" fs-input fs-hold-focus fs-on-focus=\"active = true\" fs-on-blur=\"onBlur()\" fs-blur-when=\"!active\" fs-down=\"listInterface.move(1)\" fs-up=\"listInterface.move(-1)\" fs-pgup=\"listInterface.move(-11)\" fs-pgdown=\"listInterface.move(11)\" fs-enter=\"onEnter()\" fs-esc=\"active = false\" class=\"form-control\" type=\"text\" placeholder=\"Select something\" ng-model=\"search\"/> <div ng-if=\"active && dropdownItems.length > 0\" class=\"open\"> <div fs-list items=\"dropdownItems\"> ::item-template </div> </div> </div> </div>";
-	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/multiselect.html", v1)}]);
 	module.exports=v1;
 
 /***/ },
@@ -2046,24 +2039,24 @@
 /* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var v1="<div class=\"fs-time fs-widget-root\"> <input fs-null-form fs-input fs-focus-when=\"active\" fs-blur-when=\"!active\" fs-on-focus=\"active = true\" fs-on-blur=\"onBlur()\" fs-hold-focus fs-down=\"move(1)\" fs-up=\"move(-1)\" fs-pg-up=\"move(-11)\" fs-pg-down=\"move(11)\" fs-enter=\"onEnter()\" fs-esc=\"active = false\" class=\"form-control fs-time-role\" ng-disabled=\"disabled\" type=\"text\"/>\n<span class=\"glyphicon glyphicon-time\" ng-click=\"active = !disabled\"></span> <div ng-if=\"!disabled && active\" fs-list items=\"dropdownItems\"> {{item}} </div> </div>";
-	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/time.html", v1)}]);
+	var v1="<div class=\"fs-multiselect fs-widget-root\" ng-class=\"{ &quot;fs-with-selected-items&quot;: selectedItems.length > 0 }\"> <div class=\"fs-multiselect-wrapper\"> <div class=\"fs-multiselect-selected-items\" ng-if=\"selectedItems.length > 0\"> <a ng-repeat=\"item in selectedItems\" class=\"btn\" ng-click=\"unselectItem(item)\" ng-disabled=\"disabled\"> ::item-template\n<span class=\"fs-close\"></span> </a> </div> <input ng-keydown=\"onkeys($event)\" fs-null-form ng-disabled=\"disabled\" fs-input fs-hold-focus fs-on-focus=\"active = true\" fs-on-blur=\"onBlur()\" fs-blur-when=\"!active\" fs-down=\"listInterface.move(1)\" fs-up=\"listInterface.move(-1)\" fs-pgup=\"listInterface.move(-11)\" fs-pgdown=\"listInterface.move(11)\" fs-enter=\"onEnter()\" fs-esc=\"active = false\" class=\"form-control\" type=\"text\" placeholder=\"Select something\" ng-model=\"search\"/> <div ng-if=\"active && dropdownItems.length > 0\" class=\"open\"> <div fs-list items=\"dropdownItems\"> ::item-template </div> </div> </div> </div>";
+	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/multiselect.html", v1)}]);
 	module.exports=v1;
 
 /***/ },
 /* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var v1="<div class=\"fs-date fs-widget-root\"> <input fs-input fs-focus-when=\"active\" fs-blur-when=\"!active\" fs-on-focus=\"active = true\" fs-on-blur=\"active = false\" fs-hold-focus fs-esc=\"active = false\" type=\"text\" ng-disabled=\"disabled\" class=\"form-control\" ng-model=\"selectedDate.date\" fs-date-format=\"{{format}}\" placeholder=\"{{placeholder}}\" fs-null-form/>\n<span class=\"glyphicon glyphicon-calendar\" ng-click=\"active = !disabled\"></span> <div ng-if=\"!disabled && active\" class=\"open fs-calendar-wrapper\"> <div class=\"dropdown-menu\"> <fs-calendar ng-model=\"selectedDate.date\" on-select=\"close()\"/> </div> </div> </div>";
-	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/date.html", v1)}]);
+	var v1="<div class=\"fs-time fs-widget-root\"> <input fs-null-form fs-input fs-focus-when=\"active\" fs-blur-when=\"!active\" fs-on-focus=\"active = true\" fs-on-blur=\"onBlur()\" fs-hold-focus fs-down=\"move(1)\" fs-up=\"move(-1)\" fs-pg-up=\"move(-11)\" fs-pg-down=\"move(11)\" fs-enter=\"onEnter()\" fs-esc=\"active = false\" class=\"form-control fs-time-role\" ng-disabled=\"disabled\" type=\"text\"/>\n<span class=\"glyphicon glyphicon-time\" ng-click=\"active = !disabled\"></span> <div ng-if=\"!disabled && active\" fs-list items=\"dropdownItems\"> {{item}} </div> </div>";
+	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/time.html", v1)}]);
 	module.exports=v1;
 
 /***/ },
 /* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var v1="<div class=\"fs-datetime fs-widget-root\" ng-class=\"{ &quot;fs-with-value&quot;: value }\"> <div fs-date ng-model=\"date\" ng-disabled=\"disabled\" fs-null-form></div> <div fs-time ng-model=\"time\" ng-disabled=\"disabled\" fs-null-form with-date></div> <button type=\"button\" class=\"btn btn-default fs-close\" ng-show=\"value\" ng-disabled=\"disabled\" ng-click=\"clearDate()\"></button> </div>";
-	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/datetime.html", v1)}]);
+	var v1="<div class=\"fs-date fs-widget-root\"> <input fs-input fs-focus-when=\"active\" fs-blur-when=\"!active\" fs-on-focus=\"active = true\" fs-on-blur=\"active = false\" fs-hold-focus fs-esc=\"active = false\" type=\"text\" ng-disabled=\"disabled\" class=\"form-control\" ng-model=\"selectedDate.date\" fs-date-format=\"{{format}}\" placeholder=\"{{placeholder}}\" fs-null-form/>\n<span class=\"glyphicon glyphicon-calendar\" ng-click=\"active = !disabled\"></span> <div ng-if=\"!disabled && active\" class=\"open fs-calendar-wrapper\"> <div class=\"dropdown-menu\"> <fs-calendar ng-model=\"selectedDate.date\" on-select=\"close()\"/> </div> </div> </div>";
+	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/date.html", v1)}]);
 	module.exports=v1;
 
 /***/ },
@@ -2072,6 +2065,14 @@
 
 	var v1="<div class=\"fs-calendar\" data-ng-switch=\"selectionMode\"> <div data-ng-switch-when=\"year\"> <div class=\"fs-calendar-header\"> <span class=\"fs-calendar-prev\" data-ng-click=\"prevYearRange()\"></span>\n<span class=\"fs-calendar-title\" data-ng-click=\"switchSelectionMode()\"> {{ years[0] }}-{{ years[years.length-1] }} </span>\n<span class=\"fs-calendar-next\" data-ng-click=\"nextYearRange()\"></span> </div> <table class=\"table-condensed\"> <tr data-ng-repeat=\"yearGroup in yearGroups\"> <td data-ng-repeat=\"year in yearGroup\" data-ng-click=\"selectYear(year)\" data-ng-class=\"{'active': year == selectedYear}\" class=\"year\"> {{ year }} </td> </tr> </table> </div> <div data-ng-switch-when=\"month\"> <div class=\"fs-calendar-header\"> <span class=\"fs-calendar-prev\" data-ng-click=\"prevYear()\"></span>\n<span class=\"fs-calendar-title\" data-ng-click=\"switchSelectionMode()\"> {{ selectedYear }} </span>\n<span class=\"fs-calendar-next\" data-ng-click=\"nextYear()\"></span> </div> <table class=\"table-condensed\"> <tr data-ng-repeat=\"monthGroup in monthGroups\"> <td data-ng-repeat=\"month in monthGroup\" data-ng-click=\"selectMonth(month)\" data-ng-class=\"{'active': month == selectedMonth && isSameYear()}\" class=\"month\"> {{ month }} </td> </tr> </table> </div> <div data-ng-switch-default> <div class=\"fs-calendar-header\"> <span class=\"fs-calendar-prev\" data-ng-click=\"prevMonth()\"></span>\n<span class=\"fs-calendar-title\" data-ng-click=\"switchSelectionMode()\"> {{ selectedMonth + ', ' + selectedYear }} </span>\n<span class=\"fs-calendar-next\" data-ng-click=\"nextMonth()\"></span> </div> <table class=\"table-condensed\"> <thead> <tr> <th data-ng-repeat=\"weekDay in weekDays\"> {{ weekDay }} </th> </tr> </thead> <tbody> <tr data-ng-repeat=\"week in weeks\"> <td data-ng-repeat=\"day in week\" class=\"day\" data-ng-class=\"{'day-in-selected-month': isDayInSelectedMonth(day),\n                       'day-current': isCurrentDate(day),\n                       'active bg-info': isSelectedDate(day)}\" data-ng-click=\"selectDay(day)\"> {{ day.getDate() }} </td> </tr> </tbody> </table> </div> </div>";
 	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/calendar.html", v1)}]);
+	module.exports=v1;
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var v1="<div class=\"fs-datetime fs-widget-root\" ng-class=\"{ &quot;fs-with-value&quot;: value }\"> <div fs-date ng-model=\"date\" ng-disabled=\"disabled\" fs-null-form></div> <div fs-time ng-model=\"time\" ng-disabled=\"disabled\" fs-null-form with-date></div> <button type=\"button\" class=\"btn btn-default fs-close\" ng-show=\"value\" ng-disabled=\"disabled\" ng-click=\"clearDate()\"></button> </div>";
+	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/datetime.html", v1)}]);
 	module.exports=v1;
 
 /***/ }
