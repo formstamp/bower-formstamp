@@ -686,8 +686,10 @@
 	      },
 	      controller: [
 	        '$scope', '$element', '$attrs', '$filter', '$timeout', function($scope, $element, $attrs, $filter, $timeout) {
-	          var updateDropdown;
+	          var throttleTime, updateDropdown;
+	          $scope.asyncState = 'loaded';
 	          $scope.active = false;
+	          throttleTime = parseInt($attrs['throttle'] || '200');
 	          if ($attrs.freetext != null) {
 	            $scope.dynamicItems = function() {
 	              if ($scope.search) {
@@ -702,13 +704,41 @@
 	            };
 	          }
 	          updateDropdown = function() {
-	            return $scope.dropdownItems = $filter('filter')($scope.items || [], $scope.search).concat($scope.dynamicItems());
+	            var result;
+	            if (angular.isFunction($scope.items)) {
+	              result = $scope.items($scope.search);
+	              if (angular.isArray(result)) {
+	                return $scope.dropdownItems = result;
+	              } else {
+	                $scope.asyncState = 'loading';
+	                return result.then(function(data) {
+	                  $scope.asyncState = 'loaded';
+	                  return $scope.dropdownItems = data;
+	                }, function(data) {
+	                  console.log("WARNING: promise rejected");
+	                  $scope.asyncState = 'loaded';
+	                  return $scope.dropdownItems = [];
+	                });
+	              }
+	            } else {
+	              return $scope.dropdownItems = $filter('filter')($scope.items || [], $scope.search).concat($scope.dynamicItems());
+	            }
 	          };
 	          $scope.$watch('active', function(q) {
 	            return updateDropdown();
 	          });
+	          $scope.$watch('items', function(q) {
+	            return $scope.dropdownItems = [];
+	          });
 	          $scope.$watch('search', function(q) {
-	            return updateDropdown();
+	            if (angular.isFunction($scope.items)) {
+	              if ($scope.searchTimeout) {
+	                $timeout.cancel($scope.searchTimeout);
+	              }
+	              return $scope.searchTimeout = $timeout(updateDropdown, throttleTime);
+	            } else {
+	              return updateDropdown();
+	            }
 	          });
 	          $scope.selectItem = function(item) {
 	            $scope.item = item;
@@ -2031,7 +2061,7 @@
 /* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var v1="<div class=\"fs-select fs-widget-root\"> <div ng-hide=\"active\" class=\"fs-select-sel\" ng-class=\"{'btn-group': item}\"> <a class=\"btn btn-default fs-select-active\" ng-class=\"{&quot;btn-danger&quot;: invalid}\" href=\"javascript:void(0)\" ng-click=\"active = true\" ng-disabled=\"disabled\"> ::itemTpl &nbsp; </a>\n<button type=\"button\" class=\"btn btn-default fs-close\" aria-hidden=\"true\" ng-show=\"item\" ng-disabled=\"disabled\" ng-click=\"unselectItem()\"></button> </div> <div class=\"open\" ng-show=\"active\"> <input class=\"form-control\" fs-input fs-focus-when=\"active\" fs-blur-when=\"!active\" fs-on-focus=\"active = true\" fs-on-blur=\"onBlur()\" fs-hold-focus fs-down=\"move(1)\" fs-up=\"move(-1)\" fs-pg-up=\"move(-11)\" fs-pg-down=\"move(11)\" fs-enter=\"onEnter($event)\" fs-esc=\"active = false\" type=\"text\" placeholder=\"Search\" ng-model=\"search\" fs-null-form/> <div ng-if=\"active && dropdownItems.length > 0\"> <div fs-list items=\"dropdownItems\"> ::itemTpl </div> </div> </div> </div>";
+	var v1="<div class=\"fs-select fs-widget-root\" ng-class=\"'async-state-' + asyncState\"> <div ng-hide=\"active\" class=\"fs-select-sel\" ng-class=\"{'btn-group': item}\"> <a class=\"btn btn-default activate-button\" ng-class=\"{&quot;btn-danger&quot;: invalid}\" href=\"javascript:void(0)\" ng-click=\"active = true\" ng-disabled=\"disabled\"> ::itemTpl &nbsp; </a>\n<button type=\"button\" class=\"btn btn-default fs-close\" aria-hidden=\"true\" ng-show=\"item\" ng-disabled=\"disabled\" ng-click=\"unselectItem()\"></button> </div> <div class=\"open\" ng-show=\"active\"> <input class=\"form-control\" fs-input fs-focus-when=\"active\" fs-blur-when=\"!active\" fs-on-focus=\"active = true\" fs-on-blur=\"onBlur()\" fs-hold-focus fs-down=\"move(1)\" fs-up=\"move(-1)\" fs-pg-up=\"move(-11)\" fs-pg-down=\"move(11)\" fs-enter=\"onEnter($event)\" fs-esc=\"active = false\" type=\"text\" placeholder=\"Search\" ng-model=\"search\" fs-null-form/> <div class=\"spinner\"></div> <div ng-if=\"active && dropdownItems.length > 0\"> <div fs-list items=\"dropdownItems\"> ::itemTpl </div> </div> </div> </div>";
 	window.angular.module(["ng"]).run(["$templateCache",function(c){c.put("templates/fs/metaSelect.html", v1)}]);
 	module.exports=v1;
 

@@ -157,7 +157,7 @@
   -webkit-box-orient: horizontal;
   -moz-box-orient: horizontal;
 }
-.fs-select .fs-select-active {
+.fs-select .activate-button {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   display: block;
@@ -170,6 +170,33 @@
 .fs-select .fs-select-items-list-default {
   width: 100%;
   overflofs-y: auto;
+}
+.fs-select .spinner {
+  width: 30px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAActpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIgogICAgICAgICAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyI+CiAgICAgICAgIDx4bXA6Q3JlYXRvclRvb2w+QWRvYmUgSW1hZ2VSZWFkeTwveG1wOkNyZWF0b3JUb29sPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KKS7NPQAAAh9JREFUOBGllNtqFEEQhue0ajAGkYiEIEgwKuIhIAgRwXu9EkRB8D0EwTfRdxB8C+8NXsRAyKqRRVTIQWd2xu8bp3c2mjGrFvxb1d1Vf1dV12wUtZK0ZjSTpul98CxJkhV0AR405+mY329mNuY01CbwLuoxuO46juPvqE+gdI1UP1X37ygzsnkK4S6owEvwqNfrLRF6sju84wSyJxDk6FX0ww63/bZjNkUrENwBH+1XlmU325PIftkWsTeodbLCHhhVOg2Z5Q3AvcZPoj82v/FTSXS4Qewj3CazD+jnnjYyKVnwl/AYyJKqqpYxCvACKJLVL16vJvtxAmzLoYyxOIexMRwOX08Wu6+XhHXpss6Bd+AL+B+RMJMwb3DgwB5wm1yprGvAhk6Dv5UwSvb9CKh8FHs3w/wtNGz/kukUsaJgYpJXGLtlWd5oCEODm2WnMrtw+Qk+UYd7J4VowEufB5eZxT7rdQ50Hg9guUdCqW7OwjWf5/kW9qa155T7ldKvYS+g36IHwNvtcSAPmq1RZschWyTGxExku/4iWPQpXcclMl3kgs/sOUqS/gr9lHn8LqKniqKQ7L2bEsrEJdUKpCWEF7CvYJ9C28/QU3vkJMxBdMmLsRM+iFX0GlDi0AtJDYwo4SpOtzBPA2fUHvsH6x+tsya+sdcnszfYdWZouapAiF1nWpNiO1NneaQz6FkyPQqBhJJvQrSBLZEXKjWZxg+KSaDocV2ZhQAAAABJRU5ErkJggg==) no-repeat center center;
+}
+.fs-select.async-state-loading .spinner {
+  display: block;
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 1500ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-out;
+}
+@-webkit-keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.fs-select.async-state-loading input.form-control {
+  padding-right: 30px;
 }
 .dropdown.no-popup .dropdown-menu {
   position: static;
